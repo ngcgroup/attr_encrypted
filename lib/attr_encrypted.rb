@@ -235,6 +235,10 @@ module AttrEncrypted
   #   end
   #
   #   email = User.attr_encrypted_decrypt(:email, 'SOME_ENCRYPTED_EMAIL_STRING')
+  def decrypt(attribute, encrypted_value, options = {})
+    attr_encrypted_decrypt(attribute, encrypted_value, options)
+  end
+
   def attr_encrypted_decrypt(attribute, encrypted_value, options = {})
     options = attr_encrypted_encrypted_attributes[attribute.to_sym].merge(options)
     if options[:if] && !options[:unless] && not_empty?(encrypted_value)
@@ -261,6 +265,10 @@ module AttrEncrypted
   #   end
   #
   #   encrypted_email = User.attr_encrypted_encrypt(:email, 'test@example.com')
+  def encrypt(attribute, value, options = {})
+    attr_encrypted_encrypt(attribute, value, options)
+  end
+
   def attr_encrypted_encrypt(attribute, value, options = {})
     options = attr_encrypted_encrypted_attributes[attribute.to_sym].merge(options)
     if options[:if] && !options[:unless] && (options[:allow_empty_value] || not_empty?(value))
